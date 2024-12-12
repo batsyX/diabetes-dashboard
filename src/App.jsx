@@ -4,57 +4,6 @@ import EventBar from "./components/EventBar";
 import { useEffect, useState } from "react";
 
 
-const customEvents=[
-  {
-    id: 1,
-    fulldate: "2024-11-11",
-    title: "My birthday!",
-    startTime: "12:00",
-    endTime: "12:30",
-    description: "Happy birthday to me!",
-  },
-  {
-    id: 2,
-    fulldate: "2024-11-11",
-    title: "college opening",
-    startTime: "09:00",
-    endTime: "12:00",
-    description: "college opening day",
-  },
-  {
-    id: 3,
-    fulldate: "2024-11-11",
-    title: "college opening",
-    startTime: "09:00",
-    endTime: "12:00",
-    description: "college opening day",
-  },
-  {
-    id: 4,
-    fulldate: "2024-11-11",
-    title: "college opening",
-    startTime: "09:00",
-    endTime: "12:00",
-    description: "college opening day",
-  },
-  {
-    id: 5,
-    fulldate: "2024-11-11",
-    title: "college opening",
-    startTime: "09:00",
-    endTime: "12:00",
-    description: "college opening day",
-  },
-  {
-    id: 6,
-    fulldate: "2024-11-11",
-    title: "college opening",
-    startTime: "09:00",
-    endTime: "12:00",
-    description: "college opening day",
-  },
-]
-
 function App() {
 
   const [events,setEvents] = useState(() => {
@@ -67,7 +16,6 @@ function App() {
   const [date,setDate] = useState(`${dayjs().year()}-${dayjs().month()+1}-${dayjs().date()}`);
 
   const handleDate = (date,currentMonth,currentYear) => {
-    // console.log(date,currentMonth,currentYear);
     setDate(`${currentYear}-${currentMonth}-${date}`);
   }
   return (
