@@ -23,7 +23,15 @@ const monthGenerate = (year, month) => {
   }
   return monthArray;
 };
-
+//month generate function generates the month array for the given month and year
+//it takes two arguments year and month and returns a 2D array of the month
+//the first day of the month is calculated using dayjs().day() which returns the day of the week
+//the last date of the month is calculated using dayjs().daysInMonth() which returns the number of days in the month
+//the month array is initialized as an empty array
+//a week array is initialized as an empty array
+//a loop is run from 0 to the first day of the month and null values are pushed to the week array
+//a loop is run from 1 to the last date of the month and the date is pushed to the week array
+//if the week array length is 7 then the week array is pushed to the month array and the week array is reinitialized
 
 const Calendar = ({changedDate}) => {
   const [currentMonth, setCurrentMonth] = useState(dayjs().month());
