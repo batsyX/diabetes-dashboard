@@ -31,6 +31,7 @@ const Calendar = ({changedDate}) => {
   const [monthArray, setMonthArray] = useState(
     monthGenerate(currentYear, currentMonth)
   );
+  const [currentDate, setCurrentDate] = useState(dayjs().date());
   
   useEffect(() => {
     setMonthArray(monthGenerate(currentYear, currentMonth));
@@ -38,12 +39,15 @@ const Calendar = ({changedDate}) => {
   useEffect(() => {
     setMonthArray(monthGenerate(currentYear, currentMonth));
   }, [currentMonth]);
+  useEffect(() => {
+    console.log("Current Date Updated:", currentDate);
+  }, [currentDate]);
   
 
   return (
-      <div className="w-full h-full flex justify-center items-center select-none">
-        <div className="text-white flex flex-col gap-10 w-11/12">
-          <div className="flex justify-between">
+      <div className="w-full h-full flex justify-center items-start pt-10 select-none">
+        <div className="text-white flex flex-col gap-7 w-11/12">
+          <div className="flex max-lg:flex-col max-lg:gap-3 justify-between">
             <button
             className="px-10 py-2 bg-purple-500 rounded-xl font-bold font-mono"
               onClick={() => {
@@ -100,7 +104,7 @@ const Calendar = ({changedDate}) => {
               Next
             </button>
           </div>
-          <div className="grid grid-cols-7 gap-y-7 gap-x-10">
+          <div className="grid  grid-cols-7 gap-y-7 lg:gap-x-10 max-lg:gap-x-2">
             {weekTitles.map((weekTitle) => (
               <div key={weekTitle} className={`text-center font-extrabold text-xl uppercase ${weekTitle==='Sun' ?'text-red-400 ' :null}`}>
                 {weekTitle}
@@ -114,11 +118,17 @@ const Calendar = ({changedDate}) => {
                   <div key={index} 
                   onClick={() => {
                     if (date) changedDate(date, currentMonth, currentYear);
+                    setCurrentDate(Number(date));
                   }}
-                  className={date &&`relative text-center sm:px-5 sm:rounded-lg sm:py-5  cursor-pointer hover:scale-105 bg-opacity-0 transition-all duration-100 ${index==0?'sm:bg-red-400':'sm:bg-gray-700'}`}>
+                  className={date &&`relative text-center sm:px-5 rounded-lg sm:py-5  cursor-pointer hover:scale-105 transition-all duration-100  ${
+                    date ? date === currentDate?
+                                                "bg-blue-500"
+                                                : index === 0? "bg-red-400" 
+                                                              : "bg-gray-700"
+                          : ""}`}>
                     {
                       localStorage.getItem("events") && JSON.parse(localStorage.getItem("events")).find(event => event.fulldate === `${currentYear}-${currentMonth}-${date}`) && (
-                        <div className={` ${!date && 'hidden'} absolute -top-1 right-0 w-3 h-3 rounded-full bg-blue-500`}></div>
+                        <div className={` ${!date && 'hidden'} absolute -top-1 right-0 w-3 h-3 rounded-full bg-yellow-500`}></div>
                       )
                     }
                     <h3 className=" text-white text-lg font-bold">{date}</h3>

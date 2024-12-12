@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import Calendar from "./components/Calendar";
 import EventBar from "./components/EventBar";
 import { useEffect, useState } from "react";
@@ -22,39 +23,60 @@ const customEvents=[
   },
   {
     id: 3,
-    fulldate: "2022-02-14",
-    title: "Valentine's Day",
-    startTime: "00:00",
-    endTime: "23:59",
-    description: "Happy Valentine's Day 2022",
-  }
+    fulldate: "2024-11-11",
+    title: "college opening",
+    startTime: "09:00",
+    endTime: "12:00",
+    description: "college opening day",
+  },
+  {
+    id: 4,
+    fulldate: "2024-11-11",
+    title: "college opening",
+    startTime: "09:00",
+    endTime: "12:00",
+    description: "college opening day",
+  },
+  {
+    id: 5,
+    fulldate: "2024-11-11",
+    title: "college opening",
+    startTime: "09:00",
+    endTime: "12:00",
+    description: "college opening day",
+  },
+  {
+    id: 6,
+    fulldate: "2024-11-11",
+    title: "college opening",
+    startTime: "09:00",
+    endTime: "12:00",
+    description: "college opening day",
+  },
 ]
 
 function App() {
 
-  let events=[];
+  const [events,setEvents] = useState(() => {
+    const storedEvents = localStorage.getItem("events");
+    return storedEvents ? JSON.parse(storedEvents) : [];
+  });
   useEffect(() => {
-    localStorage.setItem("events", JSON.stringify(customEvents));
+    localStorage.setItem("events", JSON.stringify(events));
   }, []);
-  const [date,setDate] = useState();
+  const [date,setDate] = useState(`${dayjs().year()}-${dayjs().month()+1}-${dayjs().date()}`);
 
   const handleDate = (date,currentMonth,currentYear) => {
-    console.log(date,currentMonth,currentYear);
+    // console.log(date,currentMonth,currentYear);
     setDate(`${currentYear}-${currentMonth}-${date}`);
-    // if(localStorage.getItem("events")){
-    //   events = JSON.parse(localStorage.getItem("events"));
-    //   if(events.find(event => event.fulldate === `${currentYear}-${currentMonth}-${date}`)){
-    //     setDate(events.find(event => event.fulldate === `${currentYear}-${currentMonth}-${date}`));
-    //   }
-    // }
   }
   return (
-    <div className="w-full h-screen bg-gray-900 flex">
-      <div className="w-4/5 ">
+    <div className="w-full max-lg:h-screen bg-gray-900 flex max-lg:flex-col">
+      <div className="w-4/5 max-lg:w-full">
         <Calendar changedDate={handleDate}/>
       </div>
-      <div className="w-1/5 ">
-        <EventBar date={date} currentYear currentMonth/>
+      <div className="w-1/5 lg:overflow-y-scroll max-lg:w-full">
+        <EventBar date={date} currentYear currentMonth events={events}/>
       </div>
     </div>
   );
