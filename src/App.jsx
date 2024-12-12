@@ -5,13 +5,27 @@ import { useEffect, useState } from "react";
 
 const customEvents=[
   {
+    id: 1,
     fulldate: "2024-11-11",
-    title: "New Year",
-    description: "Happy New Year 2022",
+    title: "My birthday!",
+    startTime: "12:00",
+    endTime: "12:30",
+    description: "Happy birthday to me!",
   },
   {
+    id: 2,
+    fulldate: "2024-11-11",
+    title: "college opening",
+    startTime: "09:00",
+    endTime: "12:00",
+    description: "college opening day",
+  },
+  {
+    id: 3,
     fulldate: "2022-02-14",
     title: "Valentine's Day",
+    startTime: "00:00",
+    endTime: "23:59",
     description: "Happy Valentine's Day 2022",
   }
 ]
@@ -26,13 +40,13 @@ function App() {
 
   const handleDate = (date,currentMonth,currentYear) => {
     console.log(date,currentMonth,currentYear);
-    if(localStorage.getItem("events")){
-      events = JSON.parse(localStorage.getItem("events"));
-      if(events.find(event => event.fulldate === `${currentYear}-${currentMonth}-${date}`)){
-        console.log(events.find(event => event.fulldate === `${currentYear}-${currentMonth}-${date}`));
-        setDate(events.find(event => event.fulldate === `${currentYear}-${currentMonth}-${date}`));
-      }
-    }
+    setDate(`${currentYear}-${currentMonth}-${date}`);
+    // if(localStorage.getItem("events")){
+    //   events = JSON.parse(localStorage.getItem("events"));
+    //   if(events.find(event => event.fulldate === `${currentYear}-${currentMonth}-${date}`)){
+    //     setDate(events.find(event => event.fulldate === `${currentYear}-${currentMonth}-${date}`));
+    //   }
+    // }
   }
   return (
     <div className="w-full h-screen bg-gray-900 flex">
@@ -40,7 +54,7 @@ function App() {
         <Calendar changedDate={handleDate}/>
       </div>
       <div className="w-1/5 ">
-        <EventBar date={date}/>
+        <EventBar date={date} currentYear currentMonth/>
       </div>
     </div>
   );
