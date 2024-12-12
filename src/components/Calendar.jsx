@@ -31,13 +31,17 @@ const Calendar = ({changedDate}) => {
   const [monthArray, setMonthArray] = useState(
     monthGenerate(currentYear, currentMonth)
   );
+  
   useEffect(() => {
     setMonthArray(monthGenerate(currentYear, currentMonth));
-  }, [currentYear, currentMonth]);
+  }, [currentYear]);
+  useEffect(() => {
+    setMonthArray(monthGenerate(currentYear, currentMonth));
+  }, [currentMonth]);
   
 
   return (
-      <div className="w-full h-full flex justify-center items-center">
+      <div className="w-full h-full flex justify-center items-center select-none">
         <div className="text-white flex flex-col gap-10 w-11/12">
           <div className="flex justify-between">
             <button
@@ -59,8 +63,8 @@ const Calendar = ({changedDate}) => {
               <div className="flex items-center gap-10 justify-center">
                 <select  value={currentYear} name="year" id="" className="bg-gray-800 px-10 py-2 rounded-xl outline-none cursor-pointer"
                 onChange={(e) => {
-                  setCurrentYear(e.target.value);
-                  setMonthArray(monthGenerate(e.target.value, currentMonth));
+                  setCurrentYear(Number(e.target.value));
+                  
                 }}
                 >
                   {Array.from({length: 100}, (_, i) => i + 1950).map((year) => (
@@ -69,9 +73,7 @@ const Calendar = ({changedDate}) => {
                 </select>
                 <select  value={currentMonth} name="month" id="" className="bg-gray-800 px-10 py-2 rounded-xl outline-none cursor-pointer"
                 onChange={(e) => {
-                  setCurrentMonth(e.target.value);
-                  console.log(e.target.value);
-                  setMonthArray(monthGenerate(currentYear,e.target.value));
+                  setCurrentMonth(Number(e.target.value));
                 }}
                 >
                   {monthName.map((month, index) => (
@@ -83,7 +85,7 @@ const Calendar = ({changedDate}) => {
             <button
                 className="px-10 py-2 bg-purple-500 rounded-xl font-bold font-mono"
               onClick={() => {
-                const month = Number(currentMonth); // Ensure it's a number
+                const month = Number(currentMonth);
                 const year = Number(currentYear);
                 if (currentMonth === 11) {
                   setCurrentMonth(0);

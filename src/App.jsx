@@ -1,6 +1,6 @@
 import Calendar from "./components/Calendar";
 import EventBar from "./components/EventBar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
 const customEvents=[
@@ -19,10 +19,10 @@ const customEvents=[
 function App() {
 
   let events=[];
-
   useEffect(() => {
     localStorage.setItem("events", JSON.stringify(customEvents));
   }, []);
+  const [date,setDate] = useState();
 
   const handleDate = (date,currentMonth,currentYear) => {
     console.log(date,currentMonth,currentYear);
@@ -30,6 +30,7 @@ function App() {
       events = JSON.parse(localStorage.getItem("events"));
       if(events.find(event => event.fulldate === `${currentYear}-${currentMonth}-${date}`)){
         console.log(events.find(event => event.fulldate === `${currentYear}-${currentMonth}-${date}`));
+        setDate(events.find(event => event.fulldate === `${currentYear}-${currentMonth}-${date}`));
       }
     }
   }
@@ -39,7 +40,7 @@ function App() {
         <Calendar changedDate={handleDate}/>
       </div>
       <div className="w-1/5 ">
-        <EventBar />
+        <EventBar date={date}/>
       </div>
     </div>
   );
