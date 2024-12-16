@@ -109,7 +109,15 @@ export const LogoIcon = () => {
 };
 
 const Dashboard = () => {
-  const handlesubmit = async (data: any) => {
+  const handlesubmit = async (data: {
+    pregnancies: number;
+    Glucose: number;
+    BloodPressure: number;
+    SkinThickness: number;
+    Insulin: number;
+    BMI: number;
+    DiabetesPedigreeFunction: number;
+  }) => {
     try {
       console.log(JSON.stringify(data)); // Log the payload for debugging
   
